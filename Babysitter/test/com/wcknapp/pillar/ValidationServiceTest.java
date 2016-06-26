@@ -64,37 +64,32 @@ public class ValidationServiceTest {
 	
 	@Test
 	public void ensureValidateEndTimeReturnsFalseIfTimeIsBeforeFivePM() {
-		assertFalse(uut.validateEndTime("4:00PM"));
+		assertFalse(uut.validateEndTime(LocalTime.parse("4:00PM", FORMATTER)));
 	}
 	
 	@Test
 	public void ensureValidateEndTimeReturnsFalseIfTimeIsAfterFourAM() {
-		assertFalse(uut.validateEndTime("5:00AM"));
-	}
-	
-	@Test
-	public void ensureValidateEndTimeReturnsFalseIfTimeCannotBeParsed() {
-		assertFalse(uut.validateEndTime("0700"));
+		assertFalse(uut.validateEndTime(LocalTime.parse("5:00AM", FORMATTER)));
 	}
 	
 	@Test
 	public void ensureValidateEndTimeReturnsTrueIfTimeIsMidnight() {
-		assertTrue(uut.validateEndTime("12:00AM"));
+		assertTrue(uut.validateEndTime(LocalTime.parse("12:00AM", FORMATTER)));
 	}
 	
 	@Test
 	public void ensureValidateEndTimeReturnsTrueIfTimeIsFourAM() {
-		assertTrue(uut.validateEndTime("4:00AM"));
+		assertTrue(uut.validateEndTime(LocalTime.parse("4:00AM", FORMATTER)));
 	}
 	
 	@Test
 	public void ensureValidateEndTimeReturnsTrueIfEndTimeIsAfterFiveButBeforeMidnight() {
-		assertTrue(uut.validateEndTime("10:00PM"));
+		assertTrue(uut.validateEndTime(LocalTime.parse("10:00PM", FORMATTER)));
 	}
 	
 	@Test
 	public void ensureValidateEndTimeReturnsTrueIfEndTimeIsAfterMidnightButBeforeFour() {
-		assertTrue(uut.validateEndTime("3:00AM"));
+		assertTrue(uut.validateEndTime(LocalTime.parse("3:00AM", FORMATTER)));
 	}
 	
 	@Test

@@ -13,13 +13,12 @@ public class ValidationService {
 		boolean result = false;
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
 		
-		if (validateTime(startTime) && validateTime(bedTime)) {
+		if (validateTime(startTime) && validateTime(bedTime) && validateTime(endTime)) {
 			LocalTime start = LocalTime.parse(startTime, timeFormatter);
 			LocalTime bed = LocalTime.parse(bedTime, timeFormatter);
+			LocalTime end = LocalTime.parse(endTime, timeFormatter);
 			
-			if (validateShiftTime(start) && validateShiftTime(bed) && validateEndTime(endTime)) {
-				LocalTime end = LocalTime.parse(endTime, timeFormatter);
-				
+			if (validateShiftTime(start) && validateShiftTime(bed) && validateEndTime(end)) {
 				if (start.isBefore(bed) && (end.isAfter(bed) || end.isAfter(LocalTime.MIDNIGHT))) {
 					result = true;
 				}
@@ -59,23 +58,13 @@ public class ValidationService {
 	 * @param time The ending time of the babysitting shift
 	 * @return
 	 */
-	public boolean validateEndTime(String time) {
-		boolean result = false;
-		
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
-		try {
-			LocalTime localEndTime = LocalTime.parse(time, timeFormatter);
-			LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
-			LocalTime maxEndTime = LocalTime.parse("4:00AM", timeFormatter);
-		
-			result = (localEndTime.isAfter(validStartTime) && localEndTime.isBefore(LocalTime.MAX)) ||
-					(localEndTime.isAfter(LocalTime.MIDNIGHT) && localEndTime.isBefore(maxEndTime)) ||
-					localEndTime.equals(validStartTime) || localEndTime.equals(LocalTime.MIDNIGHT) ||
-					localEndTime.equals(maxEndTime);
-		} catch (DateTimeParseException e) {
-			result = false;
-		}
-		
-		return result;
+	public boolean validateEndTime(LocalTime time) {
+		LocalTime validStartTime = LocalTime.parse("5:00PM", FORMATTER);
+		LocalTime maxEndTime = LocalTime.parse("4:00AM", FORMATTER);
+	
+		return (time.isAfter(validStartTime) && time.isBefore(LocalTime.MAX)) ||
+				(time.isAfter(LocalTime.MIDNIGHT) && time.isBefore(maxEndTime)) ||
+				time.equals(validStartTime) || time.equals(LocalTime.MIDNIGHT) ||
+				time.equals(maxEndTime);
 	}
 }
