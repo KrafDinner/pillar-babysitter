@@ -37,4 +37,9 @@ public class ValidationServiceTest {
 	public void ensureValidateTimeReturnsTrueWhenValidAMTimeIsPassed() {
 		assertTrue(uut.validateTime("3:00AM"));
 	}
+	
+	@Test
+	public void ensureValidateStartTimeReturnsFalseIfStartTimeIsTooEarly() {
+		assertFalse(uut.validateStartTime("4:00PM"));
+	}
 }
