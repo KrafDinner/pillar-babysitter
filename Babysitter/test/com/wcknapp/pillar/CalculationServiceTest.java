@@ -17,6 +17,8 @@ public class CalculationServiceTest {
 	@Before
 	public void setUp() {
 		uut = new CalculationService();
+		mockValidationService = EasyMock.createMock(ValidationService.class);
+		uut.setValidationService(mockValidationService);
 	}
 	
 	@Test
@@ -55,5 +57,16 @@ public class CalculationServiceTest {
 	public void ensureCalculateWagesReturns0ForAllInputsEqual() {
 		//This test case is for zero hours worked
 		assertEquals(0, uut.calculateWages("5:00PM", "5:00PM", "5:00PM"));
+	}
+	
+	@Test
+	public void ensureCalculateWagesReturns0IfInputIsInvalid() {
+		EasyMock.expect(mockValidationService.validateShift("500PM", "10:00PM", "3:00AM")).andReturn(false);
+		
+		EasyMock.replay(mockValidationService);
+		long actualValue = uut.calculateWages("500PM", "10:00PM", "3:00AM");
+		EasyMock.verify(mockValidationService);
+		
+		assertEquals(0, actualValue);
 	}
 }

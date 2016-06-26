@@ -11,9 +11,14 @@ public class CalculationService {
 	private static final int EVENING_RATE = 12;
 	private static final int NIGHT_RATE = 8;
 	private static final int MORNING_RATE = 16;
+	
+	private ValidationService validationService;
 
 	public long calculateWages(String startTime, String bedTime, String endTime) {
-		return 0;		
+		if (!validationService.validateShift(startTime, bedTime, endTime)) {
+			return 0;
+		}
+		return 0;
 	}
 	
 	protected long calculateEveningWage(LocalTime startTime, LocalTime bedTime) {
@@ -32,5 +37,13 @@ public class CalculationService {
 
 	protected long calculateMorningWage(LocalTime endTime) {
 		return HOURS.between(LocalTime.MIDNIGHT, endTime) * MORNING_RATE;
+	}
+
+	public ValidationService getValidationService() {
+		return validationService;
+	}
+
+	public void setValidationService(ValidationService validationService) {
+		this.validationService = validationService;
 	}
 }
