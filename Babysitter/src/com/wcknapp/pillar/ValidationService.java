@@ -7,18 +7,22 @@ import java.util.regex.Pattern;
 
 public class ValidationService {
 	private static final String TIME_FORMAT = "^(?:0?[1-9]|1[0-2]):00[AP]M$";
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("h:ma");
 	
 	public boolean validateShift(String startTime, String bedTime, String endTime) {
 		boolean result = false;
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
 		
-		if (validateShiftTime(startTime) && validateShiftTime(bedTime) && validateEndTime(endTime)) {
+		if (validateTime(startTime) && validateTime(bedTime)) {
 			LocalTime start = LocalTime.parse(startTime, timeFormatter);
 			LocalTime bed = LocalTime.parse(bedTime, timeFormatter);
-			LocalTime end = LocalTime.parse(endTime, timeFormatter);
 			
-			if (start.isBefore(bed) && (end.isAfter(bed) || end.isAfter(LocalTime.MIDNIGHT))) {
-				result = true;
+			if (validateShiftTime(start) && validateShiftTime(bed) && validateEndTime(endTime)) {
+				LocalTime end = LocalTime.parse(endTime, timeFormatter);
+				
+				if (start.isBefore(bed) && (end.isAfter(bed) || end.isAfter(LocalTime.MIDNIGHT))) {
+					result = true;
+				}
 			}
 		}
 		
@@ -43,20 +47,10 @@ public class ValidationService {
 	 * @param time The start time or bed time of the babysitting shift
 	 * @return
 	 */
-	public boolean validateShiftTime(String time) {
-		boolean result = false;
-		
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
-		try {
-			LocalTime localStartTime = LocalTime.parse(time, timeFormatter);
-			LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
+	public boolean validateShiftTime(LocalTime time) {
+		LocalTime validStartTime = LocalTime.parse("5:00PM", FORMATTER);
 			
-			result = localStartTime.isAfter(validStartTime) || localStartTime.equals(validStartTime);
-		} catch (DateTimeParseException e) {
-			result = false;
-		}
-		
-		return result;
+		return time.isAfter(validStartTime) || time.equals(validStartTime);
 	}
 
 	/**

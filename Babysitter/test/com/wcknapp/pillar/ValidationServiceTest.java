@@ -2,11 +2,15 @@ package com.wcknapp.pillar;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class ValidationServiceTest {
-	ValidationService uut;
+	private ValidationService uut;
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("h:ma");
 	
 	@Before
 	public void setUp() {
@@ -45,22 +49,17 @@ public class ValidationServiceTest {
 	
 	@Test
 	public void ensureValidateShiftTimeReturnsFalseIfStartTimeIsTooEarly() {
-		assertFalse(uut.validateShiftTime("4:00PM"));
+		assertFalse(uut.validateShiftTime(LocalTime.parse("4:00PM", FORMATTER)));
 	}
 	
 	@Test
 	public void ensureValidateShiftTimeReturnsTrueIfTimeIsFivePM() {
-		assertTrue(uut.validateShiftTime("5:00PM"));
+		assertTrue(uut.validateShiftTime(LocalTime.parse("5:00PM", FORMATTER)));
 	}
 	
 	@Test
 	public void ensureValidateShiftTimeReturnsTrueIfTimeIsAfterFivePMAndBeforeMidnight() {
-		assertTrue(uut.validateShiftTime("7:00PM"));
-	}
-	
-	@Test
-	public void ensureValidateShiftTimeReturnsFalseIfTimeCannotBeParsed() {
-		assertFalse(uut.validateShiftTime("0700"));
+		assertTrue(uut.validateShiftTime(LocalTime.parse("7:00PM", FORMATTER)));
 	}
 	
 	@Test
