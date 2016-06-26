@@ -41,4 +41,14 @@ public class ValidationService {
 		
 		return result;
 	}
+
+	/**
+	 * Validates the end time is after 5 PM and before 4 AM.
+	 * 
+	 * @param time The ending time of the babysitting shift
+	 * @return
+	 */
+	public boolean validateEndTime(String time) {
+		return false;
+	}
 }
