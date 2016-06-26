@@ -9,7 +9,20 @@ public class ValidationService {
 	private static final String TIME_FORMAT = "^(?:0?[1-9]|1[0-2]):00[AP]M$";
 	
 	public boolean validateShift(String startTime, String bedTime, String endTime) {
-		return false;
+		boolean result = false;
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
+		
+		if (validateShiftTime(startTime) && validateShiftTime(bedTime) && validateEndTime(endTime)) {
+			LocalTime start = LocalTime.parse(startTime, timeFormatter);
+			LocalTime bed = LocalTime.parse(bedTime, timeFormatter);
+			LocalTime end = LocalTime.parse(endTime, timeFormatter);
+			
+			if (start.isBefore(bed) && (end.isAfter(bed) || end.isAfter(LocalTime.MIDNIGHT))) {
+				result = true;
+			}
+		}
+		
+		return result;
 	}
 	
 	/**
