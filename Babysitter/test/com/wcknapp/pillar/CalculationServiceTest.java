@@ -5,12 +5,14 @@ import static org.junit.Assert.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
 public class CalculationServiceTest {
-	private CalculationService uut;
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("h:ma");
+	private CalculationService uut;
+	private ValidationService mockValidationService;
 	
 	@Before
 	public void setUp() {
@@ -47,5 +49,11 @@ public class CalculationServiceTest {
 	@Test
 	public void ensureCalculateMorningWageReturns32ForEndTimeOf2AM() {
 		assertEquals(32, uut.calculateMorningWage(LocalTime.parse("2:00AM", FORMATTER)));
+	}
+	
+	@Test
+	public void ensureCalculateWagesReturns0ForAllInputsEqual() {
+		//This test case is for zero hours worked
+		assertEquals(0, uut.calculateWages("5:00PM", "5:00PM", "5:00PM"));
 	}
 }

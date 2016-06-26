@@ -34,7 +34,7 @@ public class ValidationService {
 	 * @param inputTime Time to be validated by the rules
 	 * @return
 	 */
-	public boolean validateTime(String inputTime) {
+	protected boolean validateTime(String inputTime) {
 		return Pattern.compile(TIME_FORMAT).matcher(inputTime).matches();
 	}
 	
@@ -45,7 +45,7 @@ public class ValidationService {
 	 * @param time The start time or bed time of the babysitting shift
 	 * @return
 	 */
-	public boolean validateShiftTime(LocalTime time) {
+	protected boolean validateShiftTime(LocalTime time) {
 		LocalTime validStartTime = LocalTime.parse("5:00PM", FORMATTER);
 			
 		return time.isAfter(validStartTime) || time.equals(validStartTime);
@@ -57,7 +57,7 @@ public class ValidationService {
 	 * @param time The ending time of the babysitting shift
 	 * @return
 	 */
-	public boolean validateEndTime(LocalTime time) {
+	protected boolean validateEndTime(LocalTime time) {
 		LocalTime validStartTime = LocalTime.parse("5:00PM", FORMATTER);
 		LocalTime maxEndTime = LocalTime.parse("4:00AM", FORMATTER);
 	

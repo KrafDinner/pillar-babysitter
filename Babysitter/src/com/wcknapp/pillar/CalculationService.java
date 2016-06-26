@@ -12,6 +12,10 @@ public class CalculationService {
 	private static final int NIGHT_RATE = 8;
 	private static final int MORNING_RATE = 16;
 
+	public long calculateWages(String startTime, String bedTime, String endTime) {
+		return 0;		
+	}
+	
 	protected long calculateEveningWage(LocalTime startTime, LocalTime bedTime) {
 		return HOURS.between(startTime, bedTime) * EVENING_RATE;
 	}
