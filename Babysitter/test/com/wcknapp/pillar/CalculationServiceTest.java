@@ -19,13 +19,13 @@ public class CalculationServiceTest {
 	
 	@Test
 	public void ensureCalculateEveningRateReturns0ForZeroHoursWorked() {
-		assertEquals(0, uut.calculateEveningRate(LocalTime.parse("5:00PM", FORMATTER), 
+		assertEquals(0, uut.calculateEveningWage(LocalTime.parse("5:00PM", FORMATTER), 
 				LocalTime.parse("5:00PM", FORMATTER)));
 	}
 	
 	@Test
 	public void ensureCalculateEveningRateReturns12ForOneHourWorked() {
-		assertEquals(12, uut.calculateEveningRate(LocalTime.parse("5:00PM", FORMATTER),
+		assertEquals(12, uut.calculateEveningWage(LocalTime.parse("5:00PM", FORMATTER),
 				LocalTime.parse("6:00PM", FORMATTER)));
 	}
 	
