@@ -43,4 +43,9 @@ public class CalculationServiceTest {
 	public void ensureCalculateMorningWageReturns0ForMidnightEndTime() {
 		assertEquals(0, uut.calculateMorningWage(LocalTime.MIDNIGHT));
 	}
+	
+	@Test
+	public void ensureCalculateMorningWageReturns32ForEndTimeOf2AM() {
+		assertEquals(32, uut.calculateMorningWage(LocalTime.parse("2:00AM", FORMATTER)));
+	}
 }
