@@ -23,6 +23,10 @@ public class ValidationService {
 	 * @return
 	 */
 	public boolean validateStartTime(String startTime) {
+		if ("5:00PM".equals(startTime)) {
+			return true;
+		}
+		
 		return false;
 	}
 
