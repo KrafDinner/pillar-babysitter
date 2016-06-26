@@ -41,4 +41,15 @@ public class ValidationService {
 		return result;
 	}
 
+	/**
+	 * Validates that the bed time is not before 5 and not after midnight.
+	 * 
+	 * @param bedTime The time the babysitter must put the child to bed.
+	 * @return
+	 */
+	public boolean validateBedTime(String bedTime) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

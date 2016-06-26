@@ -62,4 +62,9 @@ public class ValidationServiceTest {
 	public void ensureValidateStartTimeReturnsFalseIfTimeCannotBeParsed() {
 		assertFalse(uut.validateStartTime("0700"));
 	}
+	
+	@Test
+	public void ensureValidateBedTimeReturnsFalseIfBedTimeIsBeforeFivePM() {
+		assertFalse(uut.validateBedTime("4:00PM"));
+	}
 }
