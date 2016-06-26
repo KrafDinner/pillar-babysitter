@@ -13,7 +13,7 @@ public class CalculationService {
 		return ChronoUnit.HOURS.between(startTime, bedTime) * EVENING_RATE;
 	}
 
-	public long calculateNightWage(LocalTime bedTime) {
+	protected long calculateNightWage(LocalTime bedTime) {
 		if (bedTime.equals(LocalTime.MIDNIGHT)) {
 			return 0;
 		}
@@ -23,4 +23,7 @@ public class CalculationService {
 		return ChronoUnit.HOURS.between(startDate, endDate) * NIGHT_RATE;
 	}
 
+	protected long calculateMorningWage(LocalTime endTime) {
+		return 0;
+	}
 }
