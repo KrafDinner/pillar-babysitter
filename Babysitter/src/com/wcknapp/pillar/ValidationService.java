@@ -51,10 +51,6 @@ public class ValidationService {
 	public boolean validateEndTime(String time) {
 		boolean result = false;
 		
-		if ("4:00AM".equals(time)) {
-			return true;
-		}
-		
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
 		LocalTime localEndTime = LocalTime.parse(time, timeFormatter);
 		LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
@@ -62,7 +58,8 @@ public class ValidationService {
 		
 		if ((localEndTime.isAfter(validStartTime) && localEndTime.isBefore(LocalTime.MAX)) ||
 				(localEndTime.isAfter(LocalTime.MIDNIGHT) && localEndTime.isBefore(maxEndTime)) ||
-				localEndTime.equals(validStartTime) || localEndTime.equals(LocalTime.MIDNIGHT)) {
+				localEndTime.equals(validStartTime) || localEndTime.equals(LocalTime.MIDNIGHT) ||
+				localEndTime.equals(maxEndTime)) {
 			result = true;
 		}
 		
