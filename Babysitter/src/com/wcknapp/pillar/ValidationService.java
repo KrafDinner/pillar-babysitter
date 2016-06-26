@@ -20,17 +20,18 @@ public class ValidationService {
 	}
 	
 	/**
-	 * Validates that the starting time is not before 5 PM
+	 * Validates that the time is not before 5 PM
+	 * This can be used to validate the start time or bed time of the shift
 	 * 
-	 * @param startTime The start time of the babysitting shift
+	 * @param time The start time or bed time of the babysitting shift
 	 * @return
 	 */
-	public boolean validateStartTime(String startTime) {
+	public boolean validateShiftTime(String time) {
 		boolean result = false;
 		
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
 		try {
-			LocalTime localStartTime = LocalTime.parse(startTime, timeFormatter);
+			LocalTime localStartTime = LocalTime.parse(time, timeFormatter);
 			LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
 			
 			result = localStartTime.isAfter(validStartTime) || localStartTime.equals(validStartTime);
@@ -40,28 +41,4 @@ public class ValidationService {
 		
 		return result;
 	}
-
-	/**
-	 * Validates that the bed time is not before 5 and not after midnight.
-	 * 
-	 * @param bedTime The time the babysitter must put the child to bed.
-	 * @return
-	 */
-	public boolean validateBedTime(String bedTime) {
-		boolean result = false;
-		
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
-		LocalTime localBedTime = LocalTime.parse(bedTime, timeFormatter);
-		LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
-		
-		if (localBedTime.isBefore(validStartTime)) {
-			result = false;
-		} else {
-			result = true;
-		}
-		
-		
-		return result;
-	}
-
 }

@@ -44,37 +44,22 @@ public class ValidationServiceTest {
 	}
 	
 	@Test
-	public void ensureValidateStartTimeReturnsFalseIfStartTimeIsTooEarly() {
-		assertFalse(uut.validateStartTime("4:00PM"));
+	public void ensureValidateShiftTimeReturnsFalseIfStartTimeIsTooEarly() {
+		assertFalse(uut.validateShiftTime("4:00PM"));
 	}
 	
 	@Test
-	public void ensureValidateStartTimeReturnsTrueIfTimeIsFivePM() {
-		assertTrue(uut.validateStartTime("5:00PM"));
+	public void ensureValidateShiftTimeReturnsTrueIfTimeIsFivePM() {
+		assertTrue(uut.validateShiftTime("5:00PM"));
 	}
 	
 	@Test
-	public void ensureValidateStartTimeReturnsTrueIfTimeIsAfterFivePMAndBeforeMidnight() {
-		assertTrue(uut.validateStartTime("7:00PM"));
+	public void ensureValidateShiftTimeReturnsTrueIfTimeIsAfterFivePMAndBeforeMidnight() {
+		assertTrue(uut.validateShiftTime("7:00PM"));
 	}
 	
 	@Test
-	public void ensureValidateStartTimeReturnsFalseIfTimeCannotBeParsed() {
-		assertFalse(uut.validateStartTime("0700"));
-	}
-	
-	@Test
-	public void ensureValidateBedTimeReturnsFalseIfBedTimeIsBeforeFivePM() {
-		assertFalse(uut.validateBedTime("4:00PM"));
-	}
-	
-	@Test
-	public void ensureValidateBedTimeReturnsFalseIfBedTimeIsAfterMidnight() {
-		assertFalse(uut.validateBedTime("1:00AM"));
-	}
-	
-	@Test
-	public void ensureValidateBedTimeReturnsTrueForAnEveningBedTime() {
-		assertTrue(uut.validateBedTime("8:00PM"));
+	public void ensureValidateShiftTimeReturnsFalseIfTimeCannotBeParsed() {
+		assertFalse(uut.validateShiftTime("0700"));
 	}
 }
