@@ -20,6 +20,7 @@ public class CalculationService {
 		if (validationService.validateShift(startTime, bedTime, endTime)) {
 			LocalTime startLocalTime = LocalTime.parse(startTime, FORMATTER);
 			LocalTime bedLocalTime = LocalTime.parse(bedTime, FORMATTER);
+		
 			
 			return calculateEveningWage(startLocalTime, bedLocalTime);
 		}
@@ -30,13 +31,20 @@ public class CalculationService {
 		return HOURS.between(startTime, bedTime) * EVENING_RATE;
 	}
 
-	protected long calculateNightWage(LocalTime bedTime) {
-		if (bedTime.equals(LocalTime.MIDNIGHT)) {
+	protected long calculateNightWage(LocalTime bedTime, LocalTime endTime) {
+		if (bedTime.equals(LocalTime.MIDNIGHT) || bedTime.equals(endTime)) {
 			return 0;
 		}
 		
 		LocalDateTime startDate = bedTime.atDate(LocalDate.now());
-		LocalDateTime endDate = LocalTime.MIDNIGHT.atDate(LocalDate.now().plus(1, DAYS));
+		LocalDateTime endDate;
+		
+		if (endTime.isAfter(bedTime)) {
+			endDate = endTime.atDate(LocalDate.now());
+		} else {
+			endDate = LocalTime.MIDNIGHT.atDate(LocalDate.now().plus(1, DAYS));
+		}
+		
 		return HOURS.between(startDate, endDate) * NIGHT_RATE;
 	}
 

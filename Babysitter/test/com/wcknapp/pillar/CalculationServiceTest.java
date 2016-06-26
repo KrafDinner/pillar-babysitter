@@ -35,12 +35,26 @@ public class CalculationServiceTest {
 	
 	@Test
 	public void ensureCalculateNightWageReturns0ForBedTimeOfMidnight() {
-		assertEquals(0, uut.calculateNightWage(LocalTime.parse("12:00AM", FORMATTER)));
+		assertEquals(0, uut.calculateNightWage(LocalTime.parse("12:00AM", FORMATTER), 
+				LocalTime.parse("3:00AM", FORMATTER)));
 	}
 	
 	@Test
 	public void ensureCalculateNightWageReturns8ForBedTimeOf11PM() {
-		assertEquals(8, uut.calculateNightWage(LocalTime.parse("11:00PM", FORMATTER)));
+		assertEquals(8, uut.calculateNightWage(LocalTime.parse("11:00PM", FORMATTER), 
+				LocalTime.parse("3:00AM", FORMATTER)));
+	}
+	
+	@Test
+	public void ensureCalculateNightWageReturns8ForBedTimeOf8PMAndEndTimeOf9PM() {
+		assertEquals(8, uut.calculateNightWage(LocalTime.parse("8:00PM", FORMATTER), 
+				LocalTime.parse("9:00PM", FORMATTER)));
+	}
+	
+	@Test
+	public void ensureCalculateNightWageReturns0ForBedTimeOf8PMAndEndTimeOf8PM() {
+		assertEquals(0, uut.calculateNightWage(LocalTime.parse("8:00PM", FORMATTER), 
+				LocalTime.parse("8:00PM", FORMATTER)));
 	}
 	
 	@Test
