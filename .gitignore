@@ -1,10 +1,13 @@
 *.class
+**/bin
+
+# Eclipse metadata
 .project
 .metadata
-**/bin
 /RemoteSystemsTempFiles
 .settings
 .recommenders
+.classpath
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
