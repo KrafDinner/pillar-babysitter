@@ -28,4 +28,9 @@ public class CalculationServiceTest {
 		assertEquals(12, uut.calculateEveningRate(LocalTime.parse("5:00PM", FORMATTER),
 				LocalTime.parse("6:00PM", FORMATTER)));
 	}
+	
+	@Test
+	public void ensureCalculateNightWageReturns0ForZeroHoursWorked() {
+		assertEquals(0, uut.calculateNightWage(LocalTime.parse("12:00AM", FORMATTER)));
+	}
 }

@@ -10,4 +10,8 @@ public class CalculationService {
 		return ChronoUnit.HOURS.between(startTime, bedTime) * EVENING_RATE;
 	}
 
+	public long calculateNightWage(LocalTime bedTime) {
+		return 0;
+	}
+
 }
