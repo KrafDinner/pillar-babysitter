@@ -30,7 +30,12 @@ public class CalculationServiceTest {
 	}
 	
 	@Test
-	public void ensureCalculateNightWageReturns0ForZeroHoursWorked() {
+	public void ensureCalculateNightWageReturns0ForBedTimeOfMidnight() {
 		assertEquals(0, uut.calculateNightWage(LocalTime.parse("12:00AM", FORMATTER)));
+	}
+	
+	@Test
+	public void ensureCalculateNightWageReturns8ForBedTimeOf11PM() {
+		assertEquals(8, uut.calculateNightWage(LocalTime.parse("11:00PM", FORMATTER)));
 	}
 }
