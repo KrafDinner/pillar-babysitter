@@ -82,4 +82,9 @@ public class ValidationServiceTest {
 	public void ensureValidateEndTimeReturnsTrueIfTimeIsFourAM() {
 		assertTrue(uut.validateEndTime("4:00AM"));
 	}
+	
+	@Test
+	public void ensureValidateEndTimeReturnsTrueIfEndTimeIsAfterFiveButBeforeMidnight() {
+		assertTrue(uut.validateEndTime("10:00PM"));
+	}
 }

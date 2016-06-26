@@ -49,10 +49,21 @@ public class ValidationService {
 	 * @return
 	 */
 	public boolean validateEndTime(String time) {
-		if ("12:00AM".equals(time) || "4:00AM".equals(time)) {
+		boolean result = false;
+		
+		if ("4:00AM".equals(time)) {
 			return true;
 		}
 		
-		return false;
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
+		LocalTime localEndTime = LocalTime.parse(time, timeFormatter);
+		LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
+		
+		if ((localEndTime.isAfter(validStartTime) && localEndTime.isBefore(LocalTime.MAX)) ||
+				localEndTime.equals(validStartTime) || localEndTime.equals(LocalTime.MIDNIGHT)) {
+			result = true;
+		}
+		
+		return result;
 	}
 }
