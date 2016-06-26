@@ -20,8 +20,20 @@ public class ValidationServiceTest {
 	}
 	
 	@Test
-	public void ensureValidateTimeReturnsTrueWhenValidTimeIsPassed() {
+	public void ensureValidateTimeReturnsFalseWhenInvalidAMTimeIsPassed() {
+		uut = new ValidationService();
+		assertFalse(uut.validateTime("13:00AM"));
+	}
+	
+	@Test
+	public void ensureValidateTimeReturnsTrueWhenValidPMTimeIsPassed() {
 		uut = new ValidationService();
 		assertTrue(uut.validateTime("5:00PM"));
+	}
+	
+	@Test
+	public void ensureValidateTimeReturnsTrueWhenValidAMTimeIsPassed() {
+		uut = new ValidationService();
+		assertTrue(uut.validateTime("3:00AM"));
 	}
 }
