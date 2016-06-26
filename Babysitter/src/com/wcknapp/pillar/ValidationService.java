@@ -8,6 +8,10 @@ import java.util.regex.Pattern;
 public class ValidationService {
 	private static final String TIME_FORMAT = "^(?:0?[1-9]|1[0-2]):00[AP]M$";
 	
+	public boolean validateShift(String startTime, String bedTime, String endTime) {
+		return false;
+	}
+	
 	/**
 	 * Validate the time format for the purpose of the kata.
 	 * Times must be strings of the format hh:mm[AP]M

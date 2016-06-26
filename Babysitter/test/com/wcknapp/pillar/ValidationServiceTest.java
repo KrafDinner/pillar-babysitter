@@ -97,4 +97,9 @@ public class ValidationServiceTest {
 	public void ensureValidateEndTimeReturnsTrueIfEndTimeIsAfterMidnightButBeforeFour() {
 		assertTrue(uut.validateEndTime("3:00AM"));
 	}
+	
+	@Test
+	public void ensureValidateShiftReturnsFalseForEarlyStartTime() {
+		assertFalse(uut.validateShift("4:00PM", "9:00PM", "3:00AM"));
+	}
 }
