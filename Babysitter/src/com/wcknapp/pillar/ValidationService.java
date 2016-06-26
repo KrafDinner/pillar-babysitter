@@ -49,7 +49,7 @@ public class ValidationService {
 	 * @return
 	 */
 	public boolean validateEndTime(String time) {
-		if ("12:00AM".equals(time)) {
+		if ("12:00AM".equals(time) || "4:00AM".equals(time)) {
 			return true;
 		}
 		
