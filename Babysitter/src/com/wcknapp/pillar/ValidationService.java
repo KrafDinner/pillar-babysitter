@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class ValidationService {
-	private static final String TIME_FORMAT = "^(?:0?[1-9]|1[0-2]):(?:[0-5][0-9])[AP]M$";
+	private static final String TIME_FORMAT = "^(?:0?[1-9]|1[0-2]):00[AP]M$";
 	
 	/**
 	 * Validate the time format for the purpose of the kata.

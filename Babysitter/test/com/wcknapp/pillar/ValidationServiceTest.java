@@ -29,6 +29,11 @@ public class ValidationServiceTest {
 	}
 	
 	@Test
+	public void ensureValidateTimeReturnsFalseWhenTimeIsNotOnHour() {
+		assertFalse(uut.validateTime("5:30PM"));
+	}
+	
+	@Test
 	public void ensureValidateTimeReturnsTrueWhenValidPMTimeIsPassed() {
 		assertTrue(uut.validateTime("5:00PM"));
 	}
