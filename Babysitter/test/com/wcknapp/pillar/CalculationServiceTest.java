@@ -94,4 +94,15 @@ public class CalculationServiceTest {
 		
 		assertEquals(12, actualValue);
 	}
+	
+	@Test
+	public void ensureCalculateWagesReturns8ForNoTimeBeforeBedTimeAndOneHourAfter() {
+		EasyMock.expect(mockValidationService.validateShift("6:00PM", "6:00PM", "7:00PM")).andReturn(true);
+		
+		EasyMock.replay(mockValidationService);
+		long actualValue = uut.calculateWages("6:00PM", "6:00PM", "7:00PM");
+		EasyMock.verify(mockValidationService);
+		
+		assertEquals(8, actualValue);
+	}
 }

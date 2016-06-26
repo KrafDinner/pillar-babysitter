@@ -20,9 +20,10 @@ public class CalculationService {
 		if (validationService.validateShift(startTime, bedTime, endTime)) {
 			LocalTime startLocalTime = LocalTime.parse(startTime, FORMATTER);
 			LocalTime bedLocalTime = LocalTime.parse(bedTime, FORMATTER);
-		
+			LocalTime endLocalTime = LocalTime.parse(endTime, FORMATTER);;
 			
-			return calculateEveningWage(startLocalTime, bedLocalTime);
+			return calculateEveningWage(startLocalTime, bedLocalTime)
+					+ calculateNightWage(bedLocalTime, endLocalTime);
 		}
 		return 0;
 	}
