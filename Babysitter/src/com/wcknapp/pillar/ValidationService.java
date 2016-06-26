@@ -1,5 +1,7 @@
 package com.wcknapp.pillar;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 public class ValidationService {
@@ -23,11 +25,11 @@ public class ValidationService {
 	 * @return
 	 */
 	public boolean validateStartTime(String startTime) {
-		if ("5:00PM".equals(startTime)) {
-			return true;
-		}
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
+		LocalTime startingLocalTime = LocalTime.parse(startTime, timeFormatter);
+		LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
 		
-		return false;
+		return startingLocalTime.isAfter(validStartTime) || startingLocalTime.equals(validStartTime);
 	}
 
 }
