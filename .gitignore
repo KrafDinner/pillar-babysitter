@@ -4,6 +4,7 @@
 **/bin
 /RemoteSystemsTempFiles
 .settings
+.recommenders
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
