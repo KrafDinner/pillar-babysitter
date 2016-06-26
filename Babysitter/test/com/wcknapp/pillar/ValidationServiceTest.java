@@ -102,4 +102,14 @@ public class ValidationServiceTest {
 	public void ensureValidateShiftReturnsFalseForEarlyStartTime() {
 		assertFalse(uut.validateShift("4:00PM", "9:00PM", "3:00AM"));
 	}
+	
+	@Test
+	public void ensureValidateShiftReturnsFalseForBedtimeAfterMidnight() {
+		assertFalse(uut.validateShift("5:00PM", "1:00AM", "3:00AM"));
+	}
+	
+	@Test
+	public void ensureValidateShiftReturnsFalseForEndTimeAfterFour() {
+		assertFalse(uut.validateShift("5:00PM", "10:00PM", "6:00AM"));
+	}
 }
