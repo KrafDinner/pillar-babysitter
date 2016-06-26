@@ -2,6 +2,7 @@ package com.wcknapp.pillar;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class ValidationService {
@@ -25,11 +26,19 @@ public class ValidationService {
 	 * @return
 	 */
 	public boolean validateStartTime(String startTime) {
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
-		LocalTime startingLocalTime = LocalTime.parse(startTime, timeFormatter);
-		LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
+		boolean result = false;
 		
-		return startingLocalTime.isAfter(validStartTime) || startingLocalTime.equals(validStartTime);
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
+		try {
+			LocalTime startingLocalTime = LocalTime.parse(startTime, timeFormatter);
+			LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
+			
+			result = startingLocalTime.isAfter(validStartTime) || startingLocalTime.equals(validStartTime);
+		} catch (DateTimeParseException e) {
+			result = false;
+		}
+		
+		return result;
 	}
 
 }
