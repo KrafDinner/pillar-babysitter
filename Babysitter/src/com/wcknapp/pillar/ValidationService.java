@@ -30,10 +30,10 @@ public class ValidationService {
 		
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
 		try {
-			LocalTime startingLocalTime = LocalTime.parse(startTime, timeFormatter);
+			LocalTime localStartTime = LocalTime.parse(startTime, timeFormatter);
 			LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
 			
-			result = startingLocalTime.isAfter(validStartTime) || startingLocalTime.equals(validStartTime);
+			result = localStartTime.isAfter(validStartTime) || localStartTime.equals(validStartTime);
 		} catch (DateTimeParseException e) {
 			result = false;
 		}
@@ -48,8 +48,20 @@ public class ValidationService {
 	 * @return
 	 */
 	public boolean validateBedTime(String bedTime) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean result = false;
+		
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
+		LocalTime localBedTime = LocalTime.parse(bedTime, timeFormatter);
+		LocalTime validStartTime = LocalTime.parse("5:00PM", timeFormatter);
+		
+		if (localBedTime.isBefore(validStartTime)) {
+			result = false;
+		} else {
+			result = true;
+		}
+		
+		
+		return result;
 	}
 
 }

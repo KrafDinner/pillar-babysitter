@@ -67,4 +67,14 @@ public class ValidationServiceTest {
 	public void ensureValidateBedTimeReturnsFalseIfBedTimeIsBeforeFivePM() {
 		assertFalse(uut.validateBedTime("4:00PM"));
 	}
+	
+	@Test
+	public void ensureValidateBedTimeReturnsFalseIfBedTimeIsAfterMidnight() {
+		assertFalse(uut.validateBedTime("1:00AM"));
+	}
+	
+	@Test
+	public void ensureValidateBedTimeReturnsTrueForAnEveningBedTime() {
+		assertTrue(uut.validateBedTime("8:00PM"));
+	}
 }
