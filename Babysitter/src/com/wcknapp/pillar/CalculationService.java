@@ -1,9 +1,13 @@
 package com.wcknapp.pillar;
 
-public class CalculationService {
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
-	protected int calculateEveningRate(String startTime, String bedTime) {
-		return 0;
+public class CalculationService {
+	private static final int EVENING_RATE = 12;
+
+	protected long calculateEveningRate(LocalTime startTime, LocalTime bedTime) {
+		return ChronoUnit.HOURS.between(startTime, bedTime) * EVENING_RATE;
 	}
 
 }
