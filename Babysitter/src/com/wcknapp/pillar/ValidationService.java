@@ -18,7 +18,9 @@ public class ValidationService {
 			LocalTime end = LocalTime.parse(endTime, timeFormatter);
 			
 			if (validateShiftTime(start) && validateShiftTime(bed) && validateEndTime(end)) {
-				if (start.isBefore(bed) && (end.isAfter(bed) || end.isAfter(LocalTime.MIDNIGHT))) {
+				if ((start.isBefore(bed) || start.equals(bed))
+						&& ((end.isAfter(bed) || end.equals(bed)) 
+						|| end.isAfter(LocalTime.MIDNIGHT))) {
 					result = true;
 				}
 			}

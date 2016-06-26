@@ -6,8 +6,10 @@ import static java.time.temporal.ChronoUnit.HOURS;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class CalculationService {
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("h:ma"); 
 	private static final int EVENING_RATE = 12;
 	private static final int NIGHT_RATE = 8;
 	private static final int MORNING_RATE = 16;
@@ -15,8 +17,11 @@ public class CalculationService {
 	private ValidationService validationService;
 
 	public long calculateWages(String startTime, String bedTime, String endTime) {
-		if (!validationService.validateShift(startTime, bedTime, endTime)) {
-			return 0;
+		if (validationService.validateShift(startTime, bedTime, endTime)) {
+			LocalTime startLocalTime = LocalTime.parse(startTime, FORMATTER);
+			LocalTime bedLocalTime = LocalTime.parse(bedTime, FORMATTER);
+			
+			return calculateEveningWage(startLocalTime, bedLocalTime);
 		}
 		return 0;
 	}
