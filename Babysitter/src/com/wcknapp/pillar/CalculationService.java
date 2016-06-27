@@ -38,13 +38,8 @@ public class CalculationService {
 		}
 		
 		LocalDateTime startDate = bedTime.atDate(LocalDate.now());
-		LocalDateTime endDate;
-		
-		if (endTime.isAfter(bedTime)) {
-			endDate = endTime.atDate(LocalDate.now());
-		} else {
-			endDate = LocalTime.MIDNIGHT.atDate(LocalDate.now().plus(1, DAYS));
-		}
+		LocalDateTime endDate = endTime.isAfter(bedTime) ? endTime.atDate(LocalDate.now()) :
+			LocalTime.MIDNIGHT.atDate(LocalDate.now().plus(1, DAYS));
 		
 		return HOURS.between(startDate, endDate) * NIGHT_RATE;
 	}
