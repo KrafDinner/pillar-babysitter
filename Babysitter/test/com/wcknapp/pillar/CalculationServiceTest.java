@@ -68,6 +68,11 @@ public class CalculationServiceTest {
 	}
 	
 	@Test
+	public void ensureCalculateMorningWageReturns0ForEndTimeBeforeMidnight() {
+		assertEquals(0, uut.calculateMorningWage(LocalTime.parse("10:00PM", FORMATTER)));
+	}
+	
+	@Test
 	public void ensureCalculateWagesReturns0ForAllInputsEqual() {
 		//This test case is for zero hours worked
 		assertEquals(0, uut.calculateWages("5:00PM", "5:00PM", "5:00PM"));

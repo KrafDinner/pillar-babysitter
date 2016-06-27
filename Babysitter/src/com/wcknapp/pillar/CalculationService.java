@@ -28,10 +28,26 @@ public class CalculationService {
 		return 0;
 	}
 	
+	/**
+	 * Calculate the wage between start time and bed time for the child.
+	 * 
+	 * @param startTime The shift start time
+	 * @param bedTime The bed time for the child
+	 * 
+	 * @return The wage for the first period of the evening between start and bed time
+	 */
 	protected long calculateEveningWage(LocalTime startTime, LocalTime bedTime) {
 		return HOURS.between(startTime, bedTime) * EVENING_RATE;
 	}
 
+	/**
+	 * Calculate the wage between bed time and midnight OR end time - whichever is sooner.
+	 * 
+	 * @param bedTime The bed time of the child
+	 * @param endTime The end time of the shift
+	 * 
+	 * @return The wage for the second period of the evening between bed time and midnight or end time 
+	 */
 	protected long calculateNightWage(LocalTime bedTime, LocalTime endTime) {
 		if (bedTime.equals(LocalTime.MIDNIGHT) || bedTime.equals(endTime)) {
 			return 0;
@@ -44,8 +60,17 @@ public class CalculationService {
 		return HOURS.between(startDate, endDate) * NIGHT_RATE;
 	}
 
+	/**
+	 * Calculates the rate between midnight and the end of the shift.
+	 * If end time is before midnight, will always return 0.
+	 * 
+	 * @param endTime The end time of the shift
+	 * 
+	 * @return The wage for the third period of the evening between midnight and end time if applicable
+	 */
 	protected long calculateMorningWage(LocalTime endTime) {
-		return HOURS.between(LocalTime.MIDNIGHT, endTime) * MORNING_RATE;
+		return endTime.isAfter(LocalTime.parse("4:00AM", FORMATTER)) ? 0 : 
+			HOURS.between(LocalTime.MIDNIGHT, endTime) * MORNING_RATE;
 	}
 
 	public ValidationService getValidationService() {

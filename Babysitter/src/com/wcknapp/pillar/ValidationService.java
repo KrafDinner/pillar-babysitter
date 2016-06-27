@@ -8,6 +8,18 @@ public class ValidationService {
 	private static final String TIME_FORMAT = "^(?:0?[1-9]|1[0-2]):00[AP]M$";
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("h:ma");
 	
+	/**
+	 * Validate that all times work in accordance to the rules of logic as well as the assignment.
+	 * 
+	 * Start Time must be after 5 PM.  Bed time must be the later than or equal to the start time
+	 * but before or equal to midnight.  End time must be later than or equal to bed time.  End
+	 * time cannot be later than 4 AM.
+	 * 
+	 * @param startTime The start time of the shift
+	 * @param bedTime The bed time for the child
+	 * @param endTime The end time of the shift
+	 * @return
+	 */
 	public boolean validateShift(String startTime, String bedTime, String endTime) {
 		boolean result = false;
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:ma");
