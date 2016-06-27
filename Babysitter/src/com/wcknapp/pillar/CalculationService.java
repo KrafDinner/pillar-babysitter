@@ -16,6 +16,18 @@ public class CalculationService {
 	
 	private ValidationService validationService;
 
+	/**
+	 * Calculates the wages for a babysitting shift with a given start, bed, and end time
+	 * 
+	 * Returns 0 if validation of times fails
+	 * Times must be strings of the format hh:mm[AP]M
+	 * 
+	 * @param startTime The start time of the shift
+	 * @param bedTime The bed time for the child
+	 * @param endTime The end time of the shift
+	 * 
+	 * @return The wage that should be charged for the evening of babysitting
+	 */
 	public long calculateWages(String startTime, String bedTime, String endTime) {
 		if (validationService.validateShift(startTime, bedTime, endTime)) {
 			LocalTime startLocalTime = LocalTime.parse(startTime, FORMATTER);
@@ -23,7 +35,8 @@ public class CalculationService {
 			LocalTime endLocalTime = LocalTime.parse(endTime, FORMATTER);;
 			
 			return calculateEveningWage(startLocalTime, bedLocalTime)
-					+ calculateNightWage(bedLocalTime, endLocalTime);
+					+ calculateNightWage(bedLocalTime, endLocalTime)
+					+ calculateMorningWage(endLocalTime);
 		}
 		return 0;
 	}
