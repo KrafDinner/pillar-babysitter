@@ -38,6 +38,7 @@ public class CalculationService {
 					+ calculateNightWage(bedLocalTime, endLocalTime)
 					+ calculateMorningWage(endLocalTime);
 		}
+		
 		return 0;
 	}
 	

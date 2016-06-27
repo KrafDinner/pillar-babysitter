@@ -73,17 +73,23 @@ public class CalculationServiceTest {
 	}
 	
 	@Test
-	public void ensureCalculateWagesReturns0ForAllInputsEqual() {
-		//This test case is for zero hours worked
-		assertEquals(0, uut.calculateWages("5:00PM", "5:00PM", "5:00PM"));
-	}
-	
-	@Test
 	public void ensureCalculateWagesReturns0IfInputIsInvalid() {
 		EasyMock.expect(mockValidationService.validateShift("500PM", "10:00PM", "3:00AM")).andReturn(false);
 		
 		EasyMock.replay(mockValidationService);
 		long actualValue = uut.calculateWages("500PM", "10:00PM", "3:00AM");
+		EasyMock.verify(mockValidationService);
+		
+		assertEquals(0, actualValue);
+	}
+	
+	@Test
+	public void ensureCalculateWagesReturns0ForAllInputsEqual() {
+		//This test case is for zero hours worked
+		EasyMock.expect(mockValidationService.validateShift("5:00PM", "5:00PM", "5:00PM")).andReturn(true);
+		
+		EasyMock.replay(mockValidationService);
+		long actualValue = uut.calculateWages("5:00PM", "5:00PM", "5:00PM");
 		EasyMock.verify(mockValidationService);
 		
 		assertEquals(0, actualValue);
@@ -120,5 +126,16 @@ public class CalculationServiceTest {
 		EasyMock.verify(mockValidationService);
 		
 		assertEquals(16, actualValue);
+	}
+	
+	@Test
+	public void ensureCalculateWagesReturnsACorrectTotalForHoursWorked() {
+		EasyMock.expect(mockValidationService.validateShift("5:00PM", "11:00PM", "4:00AM")).andReturn(true);
+		
+		EasyMock.replay(mockValidationService);
+		long actualValue = uut.calculateWages("5:00PM", "11:00PM", "4:00AM");
+		EasyMock.verify(mockValidationService);
+		
+		assertEquals(144, actualValue);
 	}
 }
